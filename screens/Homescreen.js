@@ -1,17 +1,18 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useLayoutEffect, useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Usertype } from "../UserContext";
+import Usertype from "../UserContext";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
+import User from "../components/User";
 
 const Homescreen = () => {
   const navigation = useNavigation();
-  const [userId, setUserId] = useState(Usertype.userId);
-  const [alluser, setAlluser] = useState([]);
+  const [userid, setUserId] = useState("");
+  const [users, setusers] = useState([]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "Messenger",
@@ -24,43 +25,59 @@ const Homescreen = () => {
             name="chat"
             size={24}
             color="black"
-            onPress={() => navigation.navigate("AddChat")}
+            onPress={() => navigation.navigate("Chat")}
           />
           <MaterialIcons
             name="people"
             size={24}
             color="black"
-            onPress={() => navigation.navigate("AddChat")}
+            onPress={() => navigation.navigate("Friends", { userid: userid })}
+          />
+          <MaterialIcons
+            name="logout"
+            size={24}
+            color="black"
+            onPress={() => {
+              AsyncStorage.removeItem("authtoken");
+              navigation.navigate("Login");
+            }}
           />
         </View>
       ),
     });
   }, [navigation]);
+
   useEffect(() => {
-    const fetchalluser = async () => {
-      console.log("fetching all user");
-      const token = await AsyncStorage.getItem("token");
+    const fetchUsers = async () => {
+      const token = await AsyncStorage.getItem("authtoken");
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.userId;
+      setUserId(userId);
 
-      const decodedtoken = jwt_decode(token);
-      const userid = decodedtoken._id;
-
-      setUserId(userid);
+      const data = {
+        userId: userId,
+      };
 
       axios
-        .get(`https://backend-messenger.onrender.com/user/${userId}`)
-        .then((res) => {
-          setAlluser(res.data);
+        .post(`https://backend-messenger.onrender.com/users`, data)
+        .then((response) => {
+          setusers(response.data);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log("error retrieving users", error);
         });
     };
-    fetchalluser();
+
+    fetchUsers();
   }, []);
 
+  console.log("users", users);
+
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
+    <View>
+      {users.map((item, index) => (
+        <User key={index} item={item} userId={userid} />
+      ))}
     </View>
   );
 };

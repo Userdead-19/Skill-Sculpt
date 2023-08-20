@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import { KeyboardAvoidingView } from "react-native";
 import { TextInput } from "react-native";
@@ -10,20 +10,20 @@ const Loginscreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const checkloginstatus = async () => {
-      try {
-        const token = await AsyncStorage.getItem("authtoken");
-        if (token) {
-          navigation.replace("Home");
-        } else {
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    checkloginstatus();
-  }, []);
+  // useEffect(() => {
+  //   const checkloginstatus = async () => {
+  //     try {
+  //       const token = await AsyncStorage.getItem("authtoken");
+  //       if (token) {
+  //         navigation.replace("Home");
+  //       } else {
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   checkloginstatus();
+  // }, []);
 
   const handleLogin = () => {
     const user = {

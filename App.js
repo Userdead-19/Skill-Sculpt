@@ -1,13 +1,9 @@
+import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import Stacknavigator from "./Stacknavigator";
-import UserContext from "./UserContext";
+import StackNavigator from "./Stacknavigator";
 
 export default function App() {
-  return (
-    <>
-      <Stacknavigator />
-    </>
-  );
+  return <StackNavigator />;
 }
 
 const styles = StyleSheet.create({

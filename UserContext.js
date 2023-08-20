@@ -1,14 +1,14 @@
 import { createContext, useState } from "react";
 
-const Usertype = createContext();
+const UserType = createContext();
 
 const UserContext = ({ children }) => {
   const [userId, setUserId] = useState("");
   return (
-    <usertype.Provider value={{ userId, setUserId }}>
+    <UserType.Provider value={{ userId, setUserId }}>
       {children}
-    </usertype.Provider>
+    </UserType.Provider>
   );
 };
 
-export { Usertype, UserContext };
+export { UserType, UserContext };
