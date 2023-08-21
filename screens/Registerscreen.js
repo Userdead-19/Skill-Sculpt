@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
-import RNPickerSelect from "react-native-picker-select";
-import Picker from "../components/Picker";
+
 import { ScrollView } from "react-native";
 
 const Registerscreen = () => {
@@ -40,10 +39,10 @@ const Registerscreen = () => {
       yearofgraduate: YOG,
       branch: Branch,
       college: College,
-      fieldofintrest: FOI,
+      fieldofinterest: FOI,
       skills: Skills,
       placeofwork: POW,
-      desigination: Designation,
+      designation: Designation,
       about: About,
     };
     console.log("making api call");
@@ -100,6 +99,7 @@ const Registerscreen = () => {
         <KeyboardAvoidingView>
           <Text style={styles.text}>Name</Text>
           <TextInput
+            value={name}
             placeholder="Enter your name"
             onChangeText={(text) => setName(text)}
             maxLength={40}
@@ -107,6 +107,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>Email</Text>
           <TextInput
+            value={email}
             placeholder="Enter your email"
             onChangeText={(text) => setEmail(text)}
             maxLength={40}
@@ -115,6 +116,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>Password</Text>
           <TextInput
+            value={password}
             placeholder="Enter your password"
             onChangeText={(text) => setPassword(text)}
             maxLength={40}
@@ -124,6 +126,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>Image Url</Text>
           <TextInput
+            value={image}
             onChangeText={(text) => setImage(text)}
             editable
             maxLength={40}
@@ -133,6 +136,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>Gender</Text>
           <TextInput
+            value={Gender}
             placeholder="Enter your gender"
             style={styles.textinput}
             keyboardType="default"
@@ -140,6 +144,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>Date of Birth</Text>
           <TextInput
+            value={DOB}
             placeholder="Enter your date of birth in dd/mm/yyyy"
             style={styles.textinput}
             keyboardType="default"
@@ -156,6 +161,7 @@ const Registerscreen = () => {
             Year of Graduation
           </Text>
           <TextInput
+            value={YOG}
             placeholder="Enter your year of graduation"
             style={styles.textinput}
             keyboardType="default"
@@ -163,6 +169,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>Branch</Text>
           <TextInput
+            value={Branch}
             placeholder="Enter your branch"
             style={styles.textinput}
             keyboardType="default"
@@ -170,6 +177,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>College</Text>
           <TextInput
+            value={College}
             placeholder="Enter your college name"
             style={styles.textinput}
             keyboardType="default"
@@ -177,6 +185,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>fieldofintrest</Text>
           <TextInput
+            value={FOI}
             placeholder="Enter your field of intrest"
             style={styles.textinput}
             keyboardType="default"
@@ -184,6 +193,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>skills</Text>
           <TextInput
+            value={Skills}
             placeholder="Enter your skills"
             style={styles.textinput}
             keyboardType="default"
@@ -191,6 +201,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>placeofwork</Text>
           <TextInput
+            value={POW}
             placeholder="Enter your place of work"
             style={styles.textinput}
             keyboardType="default"
@@ -198,6 +209,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>designation</Text>
           <TextInput
+            value={Designation}
             placeholder="Enter your designation"
             style={styles.textinput}
             keyboardType="default"
@@ -205,6 +217,7 @@ const Registerscreen = () => {
           />
           <Text style={styles.text}>about</Text>
           <TextInput
+            value={About}
             placeholder="Enter about yourself"
             style={styles.textinput}
             keyboardType="default"

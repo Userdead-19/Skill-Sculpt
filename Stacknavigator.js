@@ -8,7 +8,11 @@ import Homescreen from "./screens/Homescreen";
 import FriendsScreen from "./screens/Friendscreen";
 import Chats from "./screens/Chats";
 import Messages from "./screens/messages";
-//import ChatMessagesScreen from "./screens/Chatmessagescreen";
+import Options from "./screens/Options";
+import Questions from "./screens/Questions";
+import QuestionDetailScreen from "./screens/QuestionDetailScreen";
+import NewQuestionScreen from "./screens/NewQuestionScreen";
+import CommentScreen from "./screens/CommentScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +34,11 @@ const Stacknavigator = () => {
         <Stack.Screen name="Friends" component={FriendsScreen} />
         <Stack.Screen name="Chat" component={Chats} />
         <Stack.Screen name="Messages" component={Messages} />
+        <Stack.Screen name="Options" component={Options} />
+        <Stack.Screen name="Questions" component={Questions} />
+        <Stack.Screen name="QuestionDetail" component={QuestionDetailScreen} />
+        <Stack.Screen name="NewQuestion" component={NewQuestionScreen} />
+        <Stack.Screen name="Comments" component={CommentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

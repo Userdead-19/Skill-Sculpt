@@ -10,20 +10,20 @@ const Loginscreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // useEffect(() => {
-  //   const checkloginstatus = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem("authtoken");
-  //       if (token) {
-  //         navigation.replace("Home");
-  //       } else {
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   checkloginstatus();
-  // }, []);
+  useEffect(() => {
+    const checkloginstatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authtoken");
+        if (token) {
+          navigation.replace("Options");
+        } else {
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    checkloginstatus();
+  }, []);
 
   const handleLogin = () => {
     const user = {
@@ -34,11 +34,11 @@ const Loginscreen = ({ navigation }) => {
     axios
       .post("https://backend-messenger.onrender.com/login", user)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         const token = res.data.token;
-        console.log(token);
+        //console.log(token);
         AsyncStorage.setItem("authtoken", token);
-        navigation.replace("Home");
+        navigation.replace("Options");
       })
       .catch((err) => {
         Alert.alert("Login Failed", "Please check your credentials");
