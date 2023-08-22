@@ -4,17 +4,33 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+//import axios from "axios";
 
 const PostDetailScreen = ({ route }) => {
   const { post } = route.params;
   const navigator = useNavigation();
   const [recipient, setRecipient] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fetchcommentsdetails = async () => {
+      const response = await fetch(
+        `https://backend-messenger.onrender.com/user/${post.comments.userID}`
+      );
+      const data = await response.json();
+      console.log(data);
+      setComments(data);
+    };
+    fetchcommentsdetails();
+  }, []);
+
   useEffect(() => {
     const fetchuserdetails = async () => {
       const response = await fetch(
         `https://backend-messenger.onrender.com/user/${post.userID}`
       );
       const data = await response.json();
+      console.log(data);
       setRecipient(data);
     };
     fetchuserdetails();
@@ -45,7 +61,7 @@ const PostDetailScreen = ({ route }) => {
       <FlatList
         data={post.comments}
         renderItem={({ item }) => (
-          <Text style={styles.comment}>{item.textr}</Text>
+          <Text style={styles.comment}>{item.comment}</Text>
         )}
         keyExtractor={(item, index) => index.toString()}
       />

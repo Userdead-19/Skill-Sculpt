@@ -1,6 +1,6 @@
 // CommentScreen.js
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
@@ -14,17 +14,17 @@ const CommentScreen = ({ route, navigation }) => {
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
       const newComment = {
-        text: comment,
-        postID: post._id, // Replace with the actual post ID
+        text: comment, // Replace with the actual post ID
         userID: userId, // Replace with the actual user ID
+        postID: post._id,
       };
 
       console.log(newComment);
 
       axios
-        .post("https://backend-messenger.onrender.com/comments", newComment)
+        .post(`https://backend-messenger.onrender.com/comments`, newComment)
         .then((response) => {
-          console.log("New comment added:", response.data);
+          Alert.alert("Success", "Comment posted successfully");
           navigation.goBack(); // Navigate back to previous screen
         })
         .catch((error) => {
