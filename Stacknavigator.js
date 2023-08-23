@@ -13,6 +13,9 @@ import Questions from "./screens/Questions";
 import QuestionDetailScreen from "./screens/QuestionDetailScreen";
 import NewQuestionScreen from "./screens/NewQuestionScreen";
 import CommentScreen from "./screens/CommentScreen";
+import BlogListScreen from "./screens/BlogListScreen";
+import CreateBlogScreen from "./screens/CreateBlogScreen";
+import BlogDetailScreen from "./screens/DetailedBlog";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +42,9 @@ const Stacknavigator = () => {
         <Stack.Screen name="QuestionDetail" component={QuestionDetailScreen} />
         <Stack.Screen name="NewQuestion" component={NewQuestionScreen} />
         <Stack.Screen name="Comments" component={CommentScreen} />
+        <Stack.Screen name="Blogs" component={BlogListScreen} />
+        <Stack.Screen name="CreateBlog" component={CreateBlogScreen} />
+        <Stack.Screen name="BlogDetail" component={BlogDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

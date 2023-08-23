@@ -12,6 +12,7 @@
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
+    "antd": "^5.8.4",
     "axios": "^1.4.0",
     "expo": "~49.0.7",
     "expo-image-picker": "~14.3.2",

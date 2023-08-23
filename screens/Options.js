@@ -22,6 +22,12 @@ const Options = () => {
           navigator.navigate("Questions");
         }}
       />
+      <Button
+        title="Blogs"
+        onPress={() => {
+          navigator.navigate("Blogs");
+        }}
+      />
     </View>
   );
 };

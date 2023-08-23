@@ -1,53 +1,85 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+} from "react-native";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
+import Usertype from "../UserContext";
+import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
-import UserChat from "../components/UserChat";
+import User from "../components/User";
 
-const Chats = () => {
-  const [acceptedFriends, setAcceptedFriends] = useState([]);
-  const [userId, setUserId] = useState("");
-  const navigate = useNavigation();
+const Homescreen = () => {
+  const navigation = useNavigation();
+  const [userid, setUserId] = useState("");
+  const [users, setusers] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "",
+      headerRight: () => (
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <MaterialIcons name="search" size={24} color="black" />
+
+          <TextInput
+            placeholder="Search"
+            style={{
+              backgroundColor: "#ECECEC",
+              padding: 10,
+              borderRadius: 20,
+              width: 250,
+            }}
+            onChangedText={(text) => setSearch(text)}
+          />
+        </View>
+      ),
+    });
+  }, [navigation]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("authtoken");
-        const decodedToken = jwt_decode(token);
-        const userId = decodedToken.userId;
-        setUserId(userId);
+    const fetchUsers = async () => {
+      const token = await AsyncStorage.getItem("authtoken");
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.userId;
+      setUserId(userId);
 
-        const response = await fetch(
-          `https://backend-messenger.onrender.com/accepted-friends/${userId}`
-        );
-        const data = await response.json();
+      const data = {
+        userId: userId,
+      };
 
-        if (response.ok) {
-          setAcceptedFriends(data);
-          console.log(acceptedFriends);
-        } else {
-          console.log("Error fetching friends:", response.status.message);
-        }
-      } catch (error) {
-        console.log("Error:", error);
-      }
+      axios
+        .post(`https://backend-messenger.onrender.com/users`, data)
+        .then((response) => {
+          setusers(response.data);
+        })
+        .catch((error) => {
+          console.log("error retrieving users", error);
+        });
     };
 
-    fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once
+    fetchUsers();
+  }, []);
+
+  console.log("users", users);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <Pressable>
-        {acceptedFriends.map((item, index) => (
-          <UserChat key={index} item={item} />
-        ))}
-      </Pressable>
-    </ScrollView>
+    <View>
+      {users.map((item, index) => (
+        <User key={index} item={item} userId={userid} />
+      ))}
+    </View>
   );
 };
 
-export default Chats;
+export default Homescreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: "center", justifyContent: "center" },
+});
