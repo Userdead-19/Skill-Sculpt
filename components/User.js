@@ -4,7 +4,9 @@ import { UserType } from "../UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
 import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 const User = ({ item }) => {
+  const navigation = useNavigation();
   const [requestset, setrequestset] = useState(false);
 
   const [friendRequests, setFriendRequests] = useState([]);
@@ -96,6 +98,9 @@ const User = ({ item }) => {
   return (
     <Pressable
       style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}
+      onPress={() => {
+        navigation.navigate("Userinfo", { user: item });
+      }}
     >
       <View>
         <Image

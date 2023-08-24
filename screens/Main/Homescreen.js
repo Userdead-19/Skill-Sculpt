@@ -30,15 +30,6 @@ const Chats = () => {
             color="black"
             onPress={() => navigation.navigate("Friends", { userid: userId })}
           />
-          <MaterialIcons
-            name="logout"
-            size={24}
-            color="black"
-            onPress={() => {
-              AsyncStorage.removeItem("authtoken");
-              navigation.navigate("Login");
-            }}
-          />
         </View>
       ),
     });

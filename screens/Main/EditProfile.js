@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
 
 const EditUserInfoScreen = ({ route, navigation }) => {
@@ -50,13 +51,17 @@ const EditUserInfoScreen = ({ route, navigation }) => {
         about: about,
       };
       axios
-        .post(
+        .put(
           `https://backend-messenger.onrender.com/userUpdate/${userInfo._id}`,
           updatedUser
         )
         .then((res) => {
           console.log(res);
           setLoading(false);
+          Alert.alert(
+            "User Updated Successfully",
+            "Changes will be reflected after you login again"
+          );
           navigation.goBack();
         })
         .catch((err) => {
