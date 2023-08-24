@@ -1,22 +1,22 @@
-import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
   StyleSheet,
+  Text,
+  View,
+  TextInput,
   TouchableOpacity,
   Alert,
 } from "react-native";
-import axios from "axios";
+import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const CreateNewBlogScreen = ({ navigation }) => {
-  const [title, setTitle] = useState("");
+const CreateBlog2 = ({ route }) => {
+  const { title, designation, company } = route.params;
   const [content, setContent] = useState("");
-  const [designation, setDesignation] = useState("");
-  const [company, setCompany] = useState("");
-
+  const navigation = useNavigation();
   const handleCreateBlog = async () => {
     const token = await AsyncStorage.getItem("authtoken");
     const decodedToken = jwt_decode(token);
@@ -48,31 +48,21 @@ const CreateNewBlogScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        value={title}
-        onChangeText={(text) => setTitle(text)}
-        style={styles.input}
-        placeholder="Title"
-      />
+    <View
+      style={{
+        alignContent: "center",
+        marginTop: 10,
+        width: 300,
+        marginLeft: 30,
+        flex: 1,
+      }}
+    >
       <TextInput
         value={content}
         onChangeText={(text) => setContent(text)}
         style={styles.input}
         placeholder="Content"
         multiline
-      />
-      <TextInput
-        value={designation}
-        onChangeText={(text) => setDesignation(text)}
-        style={styles.input}
-        placeholder="Your Designation"
-      />
-      <TextInput
-        value={company}
-        onChangeText={(text) => setCompany(text)}
-        style={styles.input}
-        placeholder="Your Company"
       />
       <TouchableOpacity style={styles.button} onPress={handleCreateBlog}>
         <Text style={styles.buttonText}>Create Blog</Text>
@@ -81,26 +71,31 @@ const CreateNewBlogScreen = ({ navigation }) => {
   );
 };
 
+export default CreateBlog2;
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
   input: {
     marginBottom: 10,
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "gray",
+    height: 300,
+    borderWidth: 1,
+    borderColor: "#dddddd",
+    borderRadius: 20,
+    paddingHorizontal: 10,
   },
   button: {
     backgroundColor: "lightblue",
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     alignItems: "center",
+    width: 150,
+    marginLeft: 70,
+    marginTop: 20,
   },
   buttonText: {
     fontWeight: "bold",
+    fontSize: 16,
   },
 });
-
-export default CreateNewBlogScreen;

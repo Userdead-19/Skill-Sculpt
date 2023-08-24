@@ -1,13 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
-import FriendRequest from "../components/FriendRequest";
+import FriendRequest from "../../components/FriendRequest";
 
 const FriendsScreen = () => {
   const [userId, setUserId] = useState("");
   const [friendRequests, setFriendRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     fetchFriendRequests();
   }, []);
@@ -29,7 +30,7 @@ const FriendsScreen = () => {
           email: friendRequest.email,
           image: friendRequest.image,
         }));
-
+        setIsLoading(false);
         setFriendRequests(friendRequestsData);
       }
     } catch (err) {
@@ -38,30 +39,41 @@ const FriendsScreen = () => {
   };
 
   console.log(friendRequests);
-  if (FriendRequest.length != 0) {
-    return (
-      <View style={{ padding: 10, marginHorizontal: 12 }}>
-        {friendRequests.length > 0 && <Text>Your Friend Requests!</Text>}
 
-        {friendRequests.map((item, index) => (
-          <FriendRequest
-            key={index}
-            item={item}
-            friendRequests={friendRequests}
-            setFriendRequests={setFriendRequests}
-          />
-        ))}
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="black" />
       </View>
     );
   } else {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>No Friend Requests</Text>
-      </View>
-    );
+    console.log(friendRequests.length);
+    if (friendRequests.length == 0) {
+      return (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text>No Friend Requests!</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ padding: 10, marginHorizontal: 12 }}>
+          {friendRequests.length > 0 && <Text>Your Friend Requests!</Text>}
+
+          {friendRequests.map((item, index) => (
+            <FriendRequest
+              key={index}
+              item={item}
+              friendRequests={friendRequests}
+              setFriendRequests={setFriendRequests}
+            />
+          ))}
+        </View>
+      );
+    }
   }
 };
-
 export default FriendsScreen;
 
 const styles = StyleSheet.create({});

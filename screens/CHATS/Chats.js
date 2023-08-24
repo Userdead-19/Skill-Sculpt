@@ -5,7 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
-import User from "../components/User";
+import User from "../../components/User";
 
 const Homescreen = () => {
   const navigation = useNavigation();

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
-import UserChat from "../components/UserChat";
+import UserChat from "../../components/UserChat";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Chats = () => {

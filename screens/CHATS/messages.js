@@ -106,7 +106,7 @@ const Messages = () => {
             name="arrow-back"
             size={24}
             color="black"
-            onPress={() => navigation.navigate("Chat")}
+            onPress={() => navigation.goBack()}
           />
 
           {selectedmessage.length > 0 ? (

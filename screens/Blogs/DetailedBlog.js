@@ -7,11 +7,14 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
+import StarRating from "react-native-star-rating";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const BlogDetailScreen = ({ route }) => {
   const [name, setName] = useState();
@@ -20,7 +23,7 @@ const BlogDetailScreen = ({ route }) => {
   const [image, setImage] = useState();
   const [likes, setLikes] = useState(0); // New state for likes
   const navigation = useNavigation();
-
+  const [liked, setLiked] = useState(false);
   useEffect(() => {
     axios
       .get(`https://backend-messenger.onrender.com/blogs/${blogId}`)
@@ -57,9 +60,13 @@ const BlogDetailScreen = ({ route }) => {
         Posted by {name}, {blog.designation} at {blog.company}
       </Text>
       <Text style={styles.content}>{blog.content}</Text>
-      <TouchableOpacity onPress={handleLike}>
-        <Text style={styles.likes}>Likes: {likes}</Text>
-      </TouchableOpacity>
+      <Pressable onPress={() => setLiked((isLiked) => !isLiked)}>
+        <MaterialCommunityIcons
+          name={liked ? "heart" : "heart-outline"}
+          size={32}
+          color={liked ? "red" : "black"}
+        />
+      </Pressable>
     </ScrollView>
   );
 };
