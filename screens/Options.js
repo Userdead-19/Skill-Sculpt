@@ -28,6 +28,12 @@ const Options = () => {
           navigator.navigate("Blogs");
         }}
       />
+      <Button
+        title="Reviews"
+        onPress={() => {
+          navigator.navigate("Review");
+        }}
+      />
     </View>
   );
 };

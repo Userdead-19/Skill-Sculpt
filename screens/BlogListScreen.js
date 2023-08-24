@@ -39,6 +39,7 @@ const BlogListScreen = ({ navigation }) => {
       navigation.navigate("CreateBlog");
     }
   };
+
   const renderItem = ({ item }) => {
     const limitedContent =
       item.content.length > 100
@@ -52,12 +53,15 @@ const BlogListScreen = ({ navigation }) => {
       >
         <View style={styles.blogInfo}>
           <Text style={styles.title}>{item.title}</Text>
-
           <Text style={styles.designation}>
             {item.designation} at {item.company}
           </Text>
           <Text style={styles.content}>{limitedContent}</Text>
         </View>
+        <Image
+          style={styles.userImage}
+          source={{ uri: item.userID[0].image }}
+        />
       </TouchableOpacity>
     );
   };
@@ -78,16 +82,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: "#f4f4f4",
   },
   itemContainer: {
     flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
+    elevation: 3,
   },
   userImage: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 10,
+    marginLeft: 10,
   },
   blogInfo: {
     flex: 1,

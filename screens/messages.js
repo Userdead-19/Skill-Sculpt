@@ -117,19 +117,29 @@ const Messages = () => {
             </View>
           ) : (
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image
-                style={{
-                  width: 30,
-                  height: 30,
-                  borderRadius: 15,
-                  resizeMode: "cover",
-                }}
-                source={{ uri: recipient?.image }}
-              />
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("Userinfo", { user: recipient })
+                }
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Image
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 15,
+                      resizeMode: "cover",
+                    }}
+                    source={{ uri: recipient?.image }}
+                  />
 
-              <Text style={{ marginLeft: 5, fontSize: 15, fontWeight: "bold" }}>
-                {recipient?.name}
-              </Text>
+                  <Text
+                    style={{ marginLeft: 5, fontSize: 15, fontWeight: "bold" }}
+                  >
+                    {recipient?.name}
+                  </Text>
+                </View>
+              </Pressable>
             </View>
           )}
         </View>
@@ -410,15 +420,7 @@ const Messages = () => {
             gap: 7,
             marginHorizontal: 8,
           }}
-        >
-          <Entypo
-            style={{ marginLeft: 5 }}
-            name="camera"
-            size={24}
-            color={"grey"}
-            onPress={() => imagepicker()}
-          />
-        </View>
+        ></View>
         <Pressable
           onPress={() => handleSend("text")}
           style={{

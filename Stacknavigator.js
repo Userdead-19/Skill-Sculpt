@@ -16,6 +16,9 @@ import CommentScreen from "./screens/CommentScreen";
 import BlogListScreen from "./screens/BlogListScreen";
 import CreateBlogScreen from "./screens/CreateBlogScreen";
 import BlogDetailScreen from "./screens/DetailedBlog";
+import UserDetailsScreen from "./screens/UserDetails";
+import ReviewsScreen from "./screens/ReviewsPage";
+import AddReviewScreen from "./screens/addReview";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,11 +31,7 @@ const Stacknavigator = () => {
           component={Loginscreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="Register"
-          component={Registerscreen}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="Register" component={Registerscreen} />
         <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="Friends" component={FriendsScreen} />
         <Stack.Screen name="Chat" component={Chats} />
@@ -45,6 +44,9 @@ const Stacknavigator = () => {
         <Stack.Screen name="Blogs" component={BlogListScreen} />
         <Stack.Screen name="CreateBlog" component={CreateBlogScreen} />
         <Stack.Screen name="BlogDetail" component={BlogDetailScreen} />
+        <Stack.Screen name="Userinfo" component={UserDetailsScreen} />
+        <Stack.Screen name="Review" component={ReviewsScreen} />
+        <Stack.Screen name="AddReview" component={AddReviewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

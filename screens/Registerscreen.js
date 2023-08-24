@@ -86,7 +86,7 @@ const Registerscreen = () => {
             color: "blue",
             fontSize: 20,
             alignContent: "center",
-            marginTop: 100,
+            marginTop: 20,
             marginRight: 10,
             fontWeight: "bold",
           }}

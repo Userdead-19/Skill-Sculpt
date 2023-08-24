@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwt_decode from "jwt-decode";
 
 const BlogDetailScreen = ({ route }) => {
   const [name, setName] = useState();
   const { blogId } = route.params;
   const [blog, setBlog] = useState([]);
   const [image, setImage] = useState();
+  const [likes, setLikes] = useState(0); // New state for likes
+  const navigation = useNavigation();
+
   useEffect(() => {
     axios
       .get(`https://backend-messenger.onrender.com/blogs/${blogId}`)
@@ -20,7 +34,12 @@ const BlogDetailScreen = ({ route }) => {
       .catch((error) => {
         console.error("Error fetching blog details:", error);
       });
-  }, [blogId]);
+  }, []);
+
+  // New function to handle likes
+  const handleLike = () => {
+    setLikes(likes + 1);
+  };
 
   if (!blog) {
     return (
@@ -38,6 +57,9 @@ const BlogDetailScreen = ({ route }) => {
         Posted by {name}, {blog.designation} at {blog.company}
       </Text>
       <Text style={styles.content}>{blog.content}</Text>
+      <TouchableOpacity onPress={handleLike}>
+        <Text style={styles.likes}>Likes: {likes}</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };

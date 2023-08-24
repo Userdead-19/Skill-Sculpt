@@ -4,17 +4,16 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-import { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+import { Button } from "react-native-paper";
+
 const PostsScreen = () => {
   const [posts, setPosts] = useState([]);
   const navigation = useNavigation();
-  const [comments, setComments] = useState([]);
+
   useEffect(() => {
     // Make an API call to fetch the post details
     axios
@@ -29,7 +28,6 @@ const PostsScreen = () => {
     // Make an API call to fetch the comments for the post
   }, []);
 
-  console.log(posts);
   return (
     <View style={styles.container}>
       <FlatList
@@ -48,7 +46,9 @@ const PostsScreen = () => {
         )}
       />
       <Button
-        title="press me"
+        icon="plus"
+        Text="Add Question"
+        mode="contained"
         onPress={() => navigation.navigate("NewQuestion")}
       />
     </View>
@@ -59,15 +59,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    borderColor: "black",
+    backgroundColor: "#f5f5f5",
   },
   postCard: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
-    borderColor: "black",
-    borderBlockColor: "black",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   postTitle: {
     fontSize: 18,

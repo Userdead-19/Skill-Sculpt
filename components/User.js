@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserType } from "../UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
+import { Alert } from "react-native";
 const User = ({ item }) => {
   const [requestset, setrequestset] = useState(false);
 
@@ -28,8 +29,16 @@ const User = ({ item }) => {
           }),
         }
       );
+
       if (response.status === 200) {
+        Alert.alert("Success", "Friend request sent");
         setrequestset(true);
+      }
+      if (response.status === 403) {
+        Alert.alert("Error", "You cant send friend request to yourself");
+      }
+      if (response.status === 400) {
+        Alert.alert("Error", "invalid request");
       }
     } catch (error) {
       console.log("error", error);

@@ -1,15 +1,7 @@
-import {
-  Button,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-} from "react-native";
-import React, { useLayoutEffect, useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
+import { View, TextInput, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
-import Usertype from "../UserContext";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwt_decode from "jwt-decode";
@@ -18,33 +10,11 @@ import User from "../components/User";
 const Homescreen = () => {
   const navigation = useNavigation();
   const [userid, setUserId] = useState("");
-  const [users, setusers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: "",
-      headerRight: () => (
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <MaterialIcons name="search" size={24} color="black" />
-
-          <TextInput
-            placeholder="Search"
-            style={{
-              backgroundColor: "#ECECEC",
-              padding: 10,
-              borderRadius: 20,
-              width: 250,
-            }}
-            onChangedText={(text) => setSearch(text)}
-          />
-        </View>
-      ),
-    });
-  }, [navigation]);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
+  const fetchUsers = async () => {
+    try {
       const token = await AsyncStorage.getItem("authtoken");
       const decodedToken = jwt_decode(token);
       const userId = decodedToken.userId;
@@ -54,20 +24,61 @@ const Homescreen = () => {
         userId: userId,
       };
 
-      axios
-        .post(`https://backend-messenger.onrender.com/users`, data)
-        .then((response) => {
-          setusers(response.data);
-        })
-        .catch((error) => {
-          console.log("error retrieving users", error);
-        });
-    };
+      const response = await axios.post(
+        "https://backend-messenger.onrender.com/users",
+        data
+      );
+      setUsers(response.data);
+    } catch (error) {
+      console.log("Error retrieving users:", error);
+    }
+  };
 
+  const fetchUsersBySearch = async () => {
+    try {
+      const response = await axios.get(
+        "https://backend-messenger.onrender.com/search",
+        {
+          params: {
+            q: search,
+          },
+        }
+      );
+      setUsers(response.data);
+    } catch (error) {
+      console.log("Error retrieving users:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
-  console.log("users", users);
+  useEffect(() => {
+    fetchUsersBySearch();
+  }, [search]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "",
+      headerRight: () => (
+        <View style={styles.searchContainer}>
+          <MaterialIcons
+            name="search"
+            size={24}
+            color="black"
+            onPress={fetchUsersBySearch}
+          />
+          <TextInput
+            placeholder="Search"
+            style={styles.input}
+            onChangeText={setSearch}
+            value={search}
+          />
+        </View>
+      ),
+    });
+  }, [navigation, search]);
 
   return (
     <View>
@@ -78,8 +89,18 @@ const Homescreen = () => {
   );
 };
 
-export default Homescreen;
-
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center" },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  input: {
+    backgroundColor: "#ECECEC",
+    padding: 10,
+    borderRadius: 20,
+    width: 250,
+  },
 });
+
+export default Homescreen;

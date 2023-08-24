@@ -28,7 +28,7 @@ const Chats = () => {
             name="people"
             size={24}
             color="black"
-            onPress={() => navigation.navigate("Friends", { userid: userid })}
+            onPress={() => navigation.navigate("Friends", { userid: userId })}
           />
           <MaterialIcons
             name="logout"

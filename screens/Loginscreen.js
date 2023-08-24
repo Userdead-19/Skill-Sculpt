@@ -1,8 +1,13 @@
-import { StyleSheet, Text, View, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
-import { KeyboardAvoidingView } from "react-native";
-import { TextInput } from "react-native";
-import { TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Alert,
+} from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -11,19 +16,18 @@ const Loginscreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const checkloginstatus = async () => {
+    const checkLoginStatus = async () => {
       try {
         const token = await AsyncStorage.getItem("authtoken");
         if (token) {
           navigation.replace("Options");
-        } else {
         }
       } catch (error) {
         console.log(error);
       }
     };
-    checkloginstatus();
-  }, []);
+    checkLoginStatus();
+  }, [navigation]);
 
   const handleLogin = () => {
     const user = {
@@ -34,9 +38,7 @@ const Loginscreen = ({ navigation }) => {
     axios
       .post("https://backend-messenger.onrender.com/login", user)
       .then((res) => {
-        //console.log(res);
         const token = res.data.token;
-        //console.log(token);
         AsyncStorage.setItem("authtoken", token);
         navigation.replace("Options");
       })
@@ -44,84 +46,38 @@ const Loginscreen = ({ navigation }) => {
         Alert.alert("Login Failed", "Please check your credentials");
       });
   };
+
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView>
-        <Text
-          style={{
-            color: "blue",
-            fontSize: 20,
-            alignContent: "center",
-            marginTop: 100,
-            marginLeft: 70,
-            fontWeight: "bold",
-          }}
-        >
-          Sign in
-        </Text>
-        <Text style={{ marginTop: 20, fontSize: 19, alignContent: "center" }}>
-          Sign in to your account
-        </Text>
-        <Text
-          style={{
-            marginTop: 50,
-            color: "grey",
-            fontWeight: "bold",
-            fontSize: 16,
-          }}
-        >
-          Email
-        </Text>
+      <KeyboardAvoidingView behavior="padding" style={styles.content}>
+        <View style={{ alignItems: "center", elevation: 10 }}>
+          <Text style={styles.signInText}>Sign in</Text>
+          <Text style={styles.subtitleText}>Sign in to your account</Text>
+        </View>
+        <Text style={styles.label}>Email</Text>
         <TextInput
           value={email}
-          onChangeText={(text) => setEmail(text)}
-          editable
-          maxLength={40}
-          style={{
-            padding: 10,
-            borderBottomColor: "grey",
-            borderBottomWidth: 1,
-          }}
+          onChangeText={setEmail}
+          style={styles.input}
           keyboardType="email-address"
         />
-        <Text
-          style={{
-            marginTop: 10,
-            color: "grey",
-            fontWeight: "bold",
-            fontSize: 16,
-          }}
-        >
-          Password
-        </Text>
+
+        <Text style={styles.label}>Password</Text>
         <TextInput
           value={password}
-          onChangeText={(text) => setPassword(text)}
-          editable
-          maxLength={40}
-          style={{
-            padding: 10,
-            borderBottomColor: "grey",
-            borderBottomWidth: 1,
-          }}
-          keyboardType="default"
-          autoComplete="password"
-          caretHidden={true}
+          onChangeText={setPassword}
+          style={styles.input}
+          secureTextEntry
         />
+
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={{ fontSize: 20, marginLeft: 70, marginTop: 10 }}>
-            Login
-          </Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <Text style={{ marginTop: 10, color: "grey" }}>
+
+        <Text style={styles.signupText}>
           Don't have an account?
-          <TouchableOpacity
-            style={{ marginTop: 15 }}
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
-          >
-            <Text style={{ marginTop: 10, color: "grey" }}> Sign up</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text style={styles.signupLink}> Sign up</Text>
           </TouchableOpacity>
         </Text>
       </KeyboardAvoidingView>
@@ -129,18 +85,59 @@ const Loginscreen = ({ navigation }) => {
   );
 };
 
-export default Loginscreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8", // Background color
     alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+  },
+  content: {
+    width: "80%",
+  },
+  signInText: {
+    color: "blue",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  subtitleText: {
+    fontSize: 18,
+    marginBottom: 30,
+  },
+  label: {
+    color: "grey",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  input: {
+    padding: 10,
+    borderBottomColor: "grey",
+    borderBottomWidth: 1,
+    marginBottom: 15,
   },
   button: {
-    marginTop: 50,
     height: 50,
     backgroundColor: "lightblue",
     borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  signupText: {
+    color: "grey",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  signupLink: {
+    color: "blue",
   },
 });
+
+export default Loginscreen;
