@@ -1,10 +1,56 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-
+import React, { useEffect, useState, useLayoutEffect } from "react";
+import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { IconButton } from "react-native-paper";
+import axios from "axios";
 const UserDetailsScreen = ({ route }) => {
   console.log(route.params);
-  const { user } = route.params;
+  const { userID } = route.params;
+  const navigation = useNavigation();
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const getUser = async () => {
+      axios
+        .get("https://backend-messenger.onrender.com/user/" + userID)
+        .then((response) => {
+          setUser(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching user:", error);
+        });
+    };
+
+    getUser();
+  }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: "Profile",
+
+      headerRight: () => (
+        <IconButton
+          icon="account-edit"
+          size={30}
+          color="#fff"
+          onPress={() => {
+            console.log(user);
+            navigation.navigate("Editprofile", { userInfo: user });
+          }}
+        />
+      ),
+    });
+  });
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <Image style={styles.userImage} source={{ uri: user.image }} />

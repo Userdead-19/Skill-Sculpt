@@ -22,6 +22,8 @@ import AddReviewScreen from "./screens/Review/addReview";
 import CreateBlog2 from "./screens/Blogs/CreateBlog2";
 import Register2 from "./screens/Main/Register2";
 import Register3 from "./screens/Main/Register3";
+import ExistingUser from "./screens/Main/ExisitngUserProfile";
+import EditProfile from "./screens/Main/EditProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -51,12 +53,18 @@ const Stacknavigator = () => {
         <Stack.Screen name="Review" component={ReviewsScreen} />
         <Stack.Screen name="AddReview" component={AddReviewScreen} />
         <Stack.Screen name="CreateBlog2" component={CreateBlog2} />
-        <Stack.Screen name="Register2" component={Register2} />
+        <Stack.Screen
+          name="Register2"
+          component={Register2}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Register3"
           component={Register3}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="ExistingUser" component={ExistingUser} />
+        <Stack.Screen name="Editprofile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
