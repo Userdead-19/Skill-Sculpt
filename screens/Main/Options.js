@@ -40,7 +40,7 @@ const Options = () => {
             fontFamily: "Roboto",
           }}
         >
-          Skill Scruplt
+          Skill Scuplt
         </Text>
       ),
       headerRight: () => (

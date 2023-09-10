@@ -282,8 +282,10 @@ const Messages = () => {
         {messages.map((item, index) => {
           if (item.messageType === "text") {
             const isSelected = selectedmessage.includes(item._id);
+
             return (
               <Pressable
+                key={index}
                 onLongPress={() => handleSelected(item)}
                 style={[
                   item.senderId._id === userId

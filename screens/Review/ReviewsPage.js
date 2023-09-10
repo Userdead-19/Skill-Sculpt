@@ -87,15 +87,26 @@ const ReviewsScreen = () => {
             <Text style={styles.placeOfWorkText}>
               {review.placeofwork || "No Place of Work"}
             </Text>
-            <Text style={styles.reviewText}>{review.review}</Text>
             <View
               style={{
-                backgroundColor: "pink",
+                backgroundColor: "#8EF4EB",
+                borderRadius: 10,
+                marginTop: 7.5,
+                elevation: 5,
+              }}
+            >
+              <Text style={styles.reviewText}>{review.review}</Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#CBF594",
+                transparent: 0.5,
                 width: 70,
                 alignItems: "center",
                 marginTop: 10,
                 height: 35,
                 borderRadius: 10,
+                elevation: 5,
               }}
             >
               <Text style={styles.ratingText}>Rating: {review.rating}</Text>
@@ -130,12 +141,13 @@ const ReviewsScreen = () => {
               </Text>
               <View
                 style={{
-                  backgroundColor: "#E2DAD8",
+                  backgroundColor: "#F7E7DB",
                   borderRadius: 14,
                   height: 100,
                   width: 340,
                   alignItems: "center",
                   marginTop: 15,
+                  elevation: 5,
                 }}
               >
                 <Text style={styles.reviewText}>{selectedReview.review}</Text>
@@ -149,13 +161,36 @@ const ReviewsScreen = () => {
                   marginLeft: 20,
                 }}
               >
-                <StarRating
-                  disabled={true}
-                  maxStars={5}
-                  starSize={25}
-                  rating={selectedReview.rating}
-                  fullStarColor="orange"
-                />
+                <Text
+                  style={{
+                    marginRight: 10,
+                    marginBottom: 10,
+                    fontSize: 17,
+                    fontWeight: "600",
+                  }}
+                >
+                  Rating:
+                </Text>
+                <View
+                  style={{
+                    marginLeft: 10,
+                    gap: 5,
+                    borderWidth: 1,
+                    borderBottomWidth: 1,
+                    borderRadius: 10,
+                    width: 200,
+                    height: 40,
+                  }}
+                >
+                  <StarRating
+                    disabled={true}
+                    maxStars={5}
+                    starSize={25}
+                    rating={selectedReview.rating}
+                    fullStarColor="orange"
+                    starStyle={{ marginRight: 7, marginLeft: 7, marginTop: 5 }}
+                  />
+                </View>
               </View>
             </ScrollView>
           )}
@@ -178,12 +213,22 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 5,
+    borderRadius: 10,
   },
   reviewContainer: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   designationText: {
     fontSize: 24,
@@ -196,9 +241,13 @@ const styles = StyleSheet.create({
   },
   reviewText: {
     marginTop: 15,
+    marginLeft: 5,
+    marginBottom: 7.5,
+    fontSize: 16,
+    fontWeight: "600",
   },
   ratingText: {
-    marginTop: 10,
+    marginTop: 7.5,
     color: "blue",
   },
   fab: {
@@ -206,7 +255,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: "blue",
+    backgroundColor: "#FA8C3B",
   },
   modalContainer: {
     flex: 1,
