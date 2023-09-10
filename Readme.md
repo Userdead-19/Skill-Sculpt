@@ -1,6 +1,6 @@
-# Skill Sculpte App
+# Skill Sculpt App
 
-Welcome to Skill Sculpte – your ultimate platform for honing your skills and gearing up for a successful future! This repository hosts the codebase for our innovative mobile application designed to empower users like you on your journey of skill development and growth.
+Welcome to Skill Sculpt – your ultimate platform for honing your skills and gearing up for a successful future! This repository hosts the codebase for our innovative mobile application designed to empower users like you on your journey of skill development and growth.
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@ Welcome to Skill Sculpte – your ultimate platform for honing your skills and g
 
 ## Introduction
 
-Skill Sculpte is not just an app, but a companion in your quest for personal and professional improvement. With a diverse set of tools and features, the app is crafted to offer a holistic approach to skill development. Whether you're a student aiming to excel in your chosen field or a professional looking to enhance your expertise, Skill Sculpte is here to guide you every step of the way.
+Skill sculpt is not just an app, but a companion in your quest for personal and professional improvement. With a diverse set of tools and features, the app is crafted to offer a holistic approach to skill development. Whether you're a student aiming to excel in your chosen field or a professional looking to enhance your expertise, Skill sculpt is here to guide you every step of the way.
 
 ## Features
 
@@ -45,7 +45,7 @@ Our app is built on the robust MERN (MongoDB, Express, React Native, Node.js) st
 
 ## Getting Started
 
-To experience Skill Sculpte on your local machine, follow these steps:
+To experience Skill sculpt on your local machine, follow these steps:
 
 1. Clone this repository: `git clone https://github.com/Userdead-19/upgrader.git`
 2. Navigate to the app directory: `cd upgrader`
@@ -56,7 +56,7 @@ Please note that you'll need to set up your own MongoDB Atlas database and confi
 
 ## Contributing
 
-We welcome contributions from the community! If you come across any issues or have ideas for improvements, please don't hesitate to open an issue or submit a pull request. Together, we can make Skill Sculpte even better!
+We welcome contributions from the community! If you come across any issues or have ideas for improvements, please don't hesitate to open an issue or submit a pull request. Together, we can make Skill sculpt even better!
 
 ## License
 
